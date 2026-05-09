@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Flight Booking Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .header {
+      background-color: #1a73e8;
+      color: #ffffff;
+      padding: 15px;
+      text-align: center;
+      border-radius: 8px 8px 0 0;
+    }
+    .content {
+      padding: 20px;
+      color: #333333;
+      line-height: 1.6;
+    }
+    .details {
+      background-color: #f1f3f4;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+    .details p {
+      margin: 6px 0;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #777777;
+      margin-top: 20px;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #1a73e8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <h2>✈️ Flight Booking Confirmed</h2>
+    </div>
+
+    <div class="content">
+      <p>Dear <span class="highlight">{{USER_NAME}}</span>,</p>
+
+      <p>
+        Thank you for booking with us! Your flight has been
+        <strong>successfully booked</strong>. Below are your booking details:
+      </p>
+
+      <div class="details">
+        <p><strong>Booking ID:</strong> {{BOOKING_ID}}</p>
+        <p><strong>Flight Number:</strong> {{FLIGHT_NUMBER}}</p>
+        <p><strong>From:</strong> {{SOURCE}}</p>
+        <p><strong>To:</strong> {{DESTINATION}}</p>
+        <p><strong>Departure Date:</strong> {{DEPARTURE_DATE}}</p>
+        <p><strong>Seat Number(s):</strong> {{SEAT_NUMBERS}}</p>
+      </div>
+
+      <p>
+        Please arrive at the airport at least
+        <strong>2 hours before departure</strong>.
+      </p>
+
+      <p>
+        We wish you a pleasant journey ✨
+      </p>
+
+      <p>
+        Regards,<br>
+        <strong>Flight Booking Team</strong>
+      </p>
+    </div>
+
+    <div class="footer">
+      <p>This is an automated email. Please do not reply.</p>
+    </div>
+  </div>
+
+</body>
+</html>
