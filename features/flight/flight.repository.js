@@ -6,7 +6,7 @@ export default class flightRepository{
     async createFlight(data){
       try{
         const newFlight= new flightModel(data);
-        await newFlight.save();
+        return await newFlight.save();
       }catch(err){
         throw new ApplicationError(err);
       }
@@ -45,5 +45,17 @@ export default class flightRepository{
         }catch(err){
           throw new ApplicationError(err);
         }
+    }
+
+    async updateAvailableSeats(flightId,count,session){
+       await flightModel.findByIdAndUpdate(
+          flightId,
+          {
+            $inc:{
+              availableSeats:count
+            }
+          },
+          {new:true,session}
+       )
     }
 }

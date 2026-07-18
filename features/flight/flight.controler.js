@@ -1,9 +1,11 @@
 import ApplicationError from "../../errorhandler/application.error.js";
 import flightRepository from "./flight.repository.js";
+import flightService from "./flight.service.js";
 
 export default class FlightControler{
     constructor(){
         this.flightrepository=new flightRepository();
+        this.flightservice=new flightService();
     }
 
    //admin can create flight 
@@ -13,8 +15,13 @@ export default class FlightControler{
             ...req.body,
             logo:req.file?req.file.filename:undefined
         }
-        await this.flightrepository.createFlight(data);
-        res.status(201).send("flight created")
+        // await this.flightrepository.createFlight(data);
+        const flight=await this.flightservice.createFlight(data);
+        res.status(201).json({
+          success:true,
+          message:"flight created successfully",
+          flight
+        })
       }catch(err){
          throw new ApplicationError(err);
       }

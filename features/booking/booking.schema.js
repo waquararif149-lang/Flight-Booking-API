@@ -2,10 +2,22 @@ import mongoose from "mongoose";
 
 const bookingSchema=new mongoose.Schema({
     userId:{
-       type:mongoose.Types.ObjectId,ref:"users"
+       type:mongoose.Schema.Types.ObjectId,ref:"users"
     },
     flightId:{
-        type:mongoose.Types.ObjectId,ref:"flights"
+        type:mongoose.Schema.Types.ObjectId,ref:"flights"
+    },
+    bookingReference:{
+      type:String,
+      unique:true,
+      required:true
+    },
+    cancellationReason:{
+       type:String
+    },
+    refundAmount:{
+      type:Number,
+      default:0
     },
     passengers:[
         {
@@ -15,6 +27,11 @@ const bookingSchema=new mongoose.Schema({
           },
           age:{
             type:Number,
+            required:true
+          },
+          gender:{
+            type:String,
+            enum:["Male","Female","Other"],
             required:true
           },
           passportNumber:{
@@ -28,8 +45,28 @@ const bookingSchema=new mongoose.Schema({
         required:true
     },
     status:{
-      type:String
-    }
-},{strict:true})
+    type:String,
+    enum:[
+        "Pending",
+        "Confirmed",
+        "Cancelled",
+        "Completed"
+    ],
+    default:"Pending"
+    },
+    paymentStatus:{
+    type:String,
+    enum:[
+        "Pending",
+        "Paid",
+        "Refunded"
+    ],
+    default:"Pending"
+   },
+   totalAmount:{
+    type:Number,
+    required:true
+   }
+},{strict:true,timestamps:true})
 
 export const bookingModel=mongoose.model("booking",bookingSchema);

@@ -5,6 +5,7 @@ import authRouter from "./features/Auth/Auth.routs.js";
 import bookingRouter from "./features/booking/booking.routs.js";
 import flightRouter from "./features/flight/flight.routs.js";
 import { jwtAuth } from "./middleware.js/jwt.auth.js";
+import seatRouter from "./features/seat/seat.routes.js";
 
 const app=express();
 
@@ -13,8 +14,9 @@ app.use("/image",express.static("images"))
 
 app.use("/api/auth/user",authRouter)
 app.use("/api/user",jwtAuth,userRouter);
-app.use("/api/flights",jwtAuth,flightRouter);
+app.use("/api/flights",flightRouter);
 app.use("/api/bookings",jwtAuth,bookingRouter);
+app.use("/api/seats",seatRouter);
 
 app.use((error,req,res,next)=>{
    if(error instanceof ApplicationError){

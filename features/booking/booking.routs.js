@@ -5,8 +5,8 @@ const bookingRouter=express.Router();
 
 const bookingControler=new BookingControler();
 
-bookingRouter.post("/",(req,res)=>{
-    bookingControler.createBooking(req,res);
+bookingRouter.post("/:flightId",(req,res)=>{
+    return bookingControler.createBooking(req,res);
 })
 bookingRouter.get('/fetch',(req,res)=>{
     bookingControler.fetchBookings(req,res)

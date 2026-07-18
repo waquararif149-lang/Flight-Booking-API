@@ -29,12 +29,22 @@ const flightSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
+    totalSeats:{
+        type:Number
+    },
     availableSeats:{
-        type:Number,
-        required:true
+        type:Number
     },
     flightClass:{
         type:String,
+        required:true
+    },
+    totalRows:{
+        type:Number,
+        required:true
+    },
+    seatsPerRow:{
+        type:Number,
         required:true
     },
     logo:{

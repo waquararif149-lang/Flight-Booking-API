@@ -1,9 +1,11 @@
 import ApplicationError from "../../errorhandler/application.error.js";
 import BookingRepository from "./booking.repositroy.js"
+import bookingService from "./booking.service.js";
 
 export default class BookingControler{
     constructor(){
         this.bookingRepository=new BookingRepository();
+        this.bookingservice=new bookingService();
     }
 
     //creating new bookings
@@ -11,14 +13,34 @@ export default class BookingControler{
         try{
           const role=req.role;
           const userId=req.userId;
-          const status="booked";
-          if(role==="user"){
-             const bookingData={...req.body,userId,status}
-             await this.bookingRepository.createBooking(bookingData);
-             res.status(201).send("booking created");
+          if(role!=="user"){
+            return res.status(403).json({
+              success:false,
+              message:"Only users can create bookings"
+            });
           }
+
+          const flightId=req.params.flightId;
+          const { passengers, seatNumbers } = req.body;
+          const bookingData={
+            flightId,
+            passengers,
+            seatNumbers,
+            userId,
+            status:"Confirmed"
+          }
+
+          const booking = await this.bookingservice.createBooking(bookingData);
+          return res.status(201).json({
+            success:true,
+            message:"booking created",
+            booking
+          });
         }catch(err){
-            throw new ApplicationError(err);
+            return res.status(500).json({
+              success:false,
+              message: err.message || "Failed to create booking"
+            });
         }
     }
     //user can fetch their bookings 
