@@ -11,11 +11,21 @@ import reservationRouter from "./features/reservation/reservation.routes.js";
 import cors from "cors";
 
 const app=express();
+const allowedOrigins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    process.env.FRONTEND_URL
+].filter(Boolean);
 
 app.use(cors({
-    origin: [
-        "http://localhost:5173"
-    ],
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+            return;
+        }
+
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
     credentials: true
 }));
 
