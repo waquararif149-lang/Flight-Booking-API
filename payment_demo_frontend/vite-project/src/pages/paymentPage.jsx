@@ -101,7 +101,7 @@ function PaymentPage() {
 
     } catch (err) {
 
-      console.error(err);
+     console.log(err);
 
       alert("Payment Failed");
 
