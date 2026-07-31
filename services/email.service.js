@@ -37,7 +37,6 @@ class EmailService{
        try{
          const flight=await this.flightrepo.getFlightById(data.flightId);
          const user=await this.userrepo.getUser(data.userId);
-         console.log(`log from email service ${user}`);
         //  const bookingHTML=await fs.readFile("../utils/email/bookingEmail.html");
          const tempData={
             userName:user.name,

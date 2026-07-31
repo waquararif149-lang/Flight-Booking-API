@@ -19,7 +19,6 @@ export default class paymentService {
 
     async createOrder(reservationId) {
         const reservation = await this.reservationrepo.getReservationById(reservationId);
-        console.log("Reservation:", reservation);
         if (!reservation) {
             throw new ApplicationError("reservation not found", 404);
         }

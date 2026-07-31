@@ -18,7 +18,7 @@ const flightservice = new flightService();
 const worker = new Worker(
     "resv-queue",
     async (job) => {
-        console.log("worker received job", job.id, job.name, job.data);
+        console.log("worker received job");
         await reservationservice.expireReservation(job.data.reservationId);
     },
     {
@@ -27,10 +27,10 @@ const worker = new Worker(
 );
 
 worker.on("completed", (job) => {
-    console.log(`job ${job.id} completed`);
+    console.log(`job completed`);
 });
 worker.on("failed", (job, err) => {
-    console.error(`job ${job?.id} failed`, err);
+    console.error(`job failed`, err);
 });
 worker.on("error", (err) => {
     console.error("worker error:", err);
