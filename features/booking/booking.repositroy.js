@@ -12,18 +12,18 @@ import { transporter } from "../../utils/email/nodemailer.js";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 
-let cancleHTMLTemplete = await fs.readFile(
-  path.join(__dirname, "../../utils/email/cancleEmail.html"),
-  'utf-8'
-)
-let bookingHTMLTemplete = await fs.readFile(
-  path.join(__dirname, "../../utils/email/bookingEmail.html"),
-  'utf-8'
-)
+// let cancleHTMLTemplete = await fs.readFile(
+//   path.join(__dirname, "../../utils/email/cancleEmail.html"),
+//   'utf-8'
+// )
+// let bookingHTMLTemplete = await fs.readFile(
+//   path.join(__dirname, "../../utils/email/bookingEmail.html"),
+//   'utf-8'
+// )
 
 export default class BookingRepository {
 
@@ -71,6 +71,15 @@ export default class BookingRepository {
       throw new ApplicationError(err);
     }
   }
-
   
+   async updateBooking(bookingId,updatedData,session){
+    return await bookingModel.findByIdAndUpdate(
+       bookingId,
+      {
+        $set:updatedData
+      },
+      {new:true,session}
+     )
+   }
+
 }

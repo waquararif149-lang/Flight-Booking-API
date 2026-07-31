@@ -1,3 +1,5 @@
+const bookingEmail = (tempData) => {
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +61,7 @@
     </div>
 
     <div class="content">
-      <p>Dear <span class="highlight">{{USER_NAME}}</span>,</p>
+      <p>Dear <span class="highlight">${tempData.userName}</span>,</p>
 
       <p>
         Thank you for booking with us! Your flight has been
@@ -67,12 +69,14 @@
       </p>
 
       <div class="details">
-        <p><strong>Booking ID:</strong> {{BOOKING_ID}}</p>
-        <p><strong>Flight Number:</strong> {{FLIGHT_NUMBER}}</p>
-        <p><strong>From:</strong> {{SOURCE}}</p>
-        <p><strong>To:</strong> {{DESTINATION}}</p>
-        <p><strong>Departure Date:</strong> {{DEPARTURE_DATE}}</p>
-        <p><strong>Seat Number(s):</strong> {{SEAT_NUMBERS}}</p>
+        <p><strong>Booking ID:</strong> ${tempData.bookingId}</p>
+        <p><strong>Flight Number:</strong> ${tempData.flightNumber}</p>
+        <p><strong>From:</strong> ${tempData.source}</p>
+        <p><strong>To:</strong> ${tempData.destination}</p>
+        <p><strong>Departure Date:</strong> ${tempData.departureDate}</p>
+        <p><strong>Seat Number(s):</strong> ${Array.isArray(tempData.seatNumbers)?
+                            tempData.seatNumbers.join(","):tempData.seatNumbers}
+        </p>
       </div>
 
       <p>
@@ -97,3 +101,7 @@
 
 </body>
 </html>
+`;
+};
+
+export default bookingEmail;

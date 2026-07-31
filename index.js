@@ -6,8 +6,17 @@ import bookingRouter from "./features/booking/booking.routs.js";
 import flightRouter from "./features/flight/flight.routs.js";
 import { jwtAuth } from "./middleware.js/jwt.auth.js";
 import seatRouter from "./features/seat/seat.routes.js";
+import paymentRouter from "./features/payment/payment.routes.js";
+import reservationRouter from "./features/reservation/reservation.routes.js";
+import cors from "cors";
 
 const app=express();
+
+app.use(cors({
+  origin:[
+    "http://localhost:5173"
+  ]
+}))
 
 app.use(express.json());
 app.use("/image",express.static("images"))
@@ -17,6 +26,8 @@ app.use("/api/user",jwtAuth,userRouter);
 app.use("/api/flights",flightRouter);
 app.use("/api/bookings",jwtAuth,bookingRouter);
 app.use("/api/seats",seatRouter);
+app.use("/api/payment",paymentRouter)
+app.use("/api/reserve",reservationRouter)
 
 app.use((error,req,res,next)=>{
    if(error instanceof ApplicationError){

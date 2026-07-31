@@ -17,5 +17,5 @@ export default class flightService{
        await this.seatservice.createSeat(seats);
        return flight;
     }
-
+  
 }

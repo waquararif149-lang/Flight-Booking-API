@@ -9,40 +9,40 @@ export default class BookingControler{
     }
 
     //creating new bookings
-    async createBooking(req,res){
-        try{
-          const role=req.role;
-          const userId=req.userId;
-          if(role!=="user"){
-            return res.status(403).json({
-              success:false,
-              message:"Only users can create bookings"
-            });
-          }
+    // async createBooking(req,res){
+    //     try{
+    //       const role=req.role;
+    //       const userId=req.userId;
+    //       if(role!=="user"){
+    //         return res.status(403).json({
+    //           success:false,
+    //           message:"Only users can create bookings"
+    //         });
+    //       }
 
-          const flightId=req.params.flightId;
-          const { passengers, seatNumbers } = req.body;
-          const bookingData={
-            flightId,
-            passengers,
-            seatNumbers,
-            userId,
-            status:"Confirmed"
-          }
+    //       const flightId=req.params.flightId;
+    //       const { passengers, seatNumbers } = req.body;
+    //       const bookingData={
+    //         flightId,
+    //         passengers,
+    //         seatNumbers,
+    //         userId,
+    //         status:"Confirmed"
+    //       }
 
-          const booking = await this.bookingservice.createBooking(bookingData);
-          return res.status(201).json({
-            success:true,
-            message:"booking created",
-            booking
-          });
-        }catch(err){
-            return res.status(500).json({
-              success:false,
-              message: err.message || "Failed to create booking"
-            });
-        }
-    }
+    //       const booking = await this.bookingservice.createBooking(bookingData);
+    //       return res.status(201).json({
+    //         success:true,
+    //         message:"booking created",
+    //         booking
+    //       });
+    //     }catch(err){
+    //         return res.status(500).json({
+    //           success:false,
+    //           message: err.message || "Failed to create booking"
+    //         });
+    //     }
+    // }
     //user can fetch their bookings 
     async fetchBookings(req,res){
         try{
@@ -116,6 +116,25 @@ export default class BookingControler{
         }catch(err){
             throw new ApplicationError(err);
         }
+    }
+
+    async cancleBooking(req,res){
+      try{
+        const userId=req.userId;
+        const bookingId=req.params.id;
+        const {reason}=req.body;
+        const booking=await this.bookingservice.cancleBooking(userId,bookingId,reason);
+        res.status(200).json({
+          success:true,
+          message:"booking cancelled successfully",
+          booking
+        })
+      }catch(err){
+        res.status(404).json({
+          success:false,
+          message:err.message
+        })
+      }
     }
 
 }
