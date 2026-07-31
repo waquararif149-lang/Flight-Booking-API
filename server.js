@@ -2,6 +2,10 @@ import app from "./index.js";
 import connectDB from "./config/db.js";
 import redisConnection from "./config/redis.js";
 
+import "./workers/notification.worker.js";
+import "./workers/refund.worker.js";
+import "./workers/reservation.worker.js";
+
 (async () => {
     await redisConnection.set("test", "Hello Redis");
 
