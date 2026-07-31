@@ -5,11 +5,11 @@ const api = axios.create({
 });
 
 export const createOrder = (reservationId) => {
-    return api.post("/payment/create-order", {
+    return api.post("/api/payment/create-order", {
         reservationId
     });
 };
 
 export const verifyPayment = (data) => {
-    return api.post("/payment/verify-order", data);
+    return api.post("/api/payment/verify-order", data);
 };
