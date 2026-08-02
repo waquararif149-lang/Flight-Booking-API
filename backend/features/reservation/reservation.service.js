@@ -136,11 +136,13 @@ export default class reservationService {
             //     Send confirmation email (later).
                await this.notificationservice.sendBookingConfirmationEmail({
                   bookingId:booking._id,
+                  bookingReference:booking.bookingReference,
                   userId:reservation.userId,
                   flightId:reservation.flightId,
+                  passengers,
+                  totalAmount: reservation.totalAmount,
                   seatNumbers:reservation.seatNumbers.join(",")
                })
-            //     Generate ticket/PDF (later).
 
             return booking;
         } catch (err) {
